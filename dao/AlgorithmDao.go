@@ -7,9 +7,10 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 
-	"config"
 	"model"
 )
+
+var cfg = beego.AppConfig
 
 type AlgorithmDao struct {
 	m_Orm        orm.Ormer
@@ -21,7 +22,7 @@ func NewAlgorithmDao() *AlgorithmDao {
 	d := new(AlgorithmDao)
 
 	d.m_Orm = orm.NewOrm()
-	d.m_Orm.Using(config.DB_NAME)
+	d.m_Orm.Using(cfg.String("dbname"))
 
 	d.m_QuerySeter = d.m_Orm.QueryTable(d.m_QueryTable)
 	d.m_QuerySeter.Limit(-1)
